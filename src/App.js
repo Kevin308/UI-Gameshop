@@ -14,7 +14,8 @@ import Cart from './component/Cart';
 import Payment from './component/Payment';
 import History from './component/History';
 import Historydetail from './component/Historydetail';
-import Adminpage from './component/Adminpage';
+import Adminhome from './component/Adminhome';
+// import Manageproduk from './component/Manageproduk';
 import './App.css';
 import './support/css/tampilan.css';
 
@@ -26,6 +27,7 @@ class App extends Component {
     const username = cookies.get('datauser')
     if(username !== undefined) {
       this.props.onAppRefresh(username);
+      console.log(username)
     }
     else {
       this.props.onAppRender();
@@ -34,29 +36,31 @@ class App extends Component {
 
   render() {
     if(this.props.cookie) {
-      // console.log(this.props.role)
+      
       return (
-        <div className="App">
-          <Header />
-          <Route exact path="/" component={Home} />
-          <Route path="/register" component={Register} />
-          <Route path="/login" component={Login} />
-          <Route path="/PS4Game" component={Ps4game} />
-          <Route path="/SwitchGame" component={NintendoSWgame} />
-          {/* <Route path="/Adminpage" component={Adminpage} /> */}
-          <div className="alignleft" style={{textAlign:"left"}}>
+        <div>
+          <div className="App">
+            <Header />
+            <Route exact path="/" component={Home} />
+            <Route path="/Adminhome" component={Adminhome} />
+            <Route path="/register" component={Register} />
+            <Route path="/login" component={Login} />
+            <Route path="/PS4Game" component={Ps4game} />
+            <Route path="/SwitchGame" component={NintendoSWgame} />
+          </div>
+          <div className="table">
             <Route path="/detail" component={Produk} />
             <Route path="/cart" component={Cart} />
             <Route path="/Payment" component={Payment} />
             <Route path="/History" component={History} />
             <Route path="/Historydetail" component={Historydetail} />
           </div>
-        </div>
+      </div>
       );
     }
     return (
       <div>
-        <Adminpage />
+        <h1>Loading</h1>
       </div>
     )
     
@@ -65,7 +69,8 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return { 
-    cookie: state.auth.cookie
+    cookie: state.auth.cookie,
+    role: state.auth.role
   };
 }
 

@@ -9,10 +9,17 @@ const cookies = new Cookies();
 class login extends Component {
 
     componentWillReceiveProps(newProp) {
+        console.log('masuk will props') 
         if(newProp !== '') {
             cookies.set('datauser',newProp.username,{ path: "/" })
             console.log(newProp.username)
         }
+
+        // if(newProp !== '') {
+        //     console.log('admin')
+        //     cookies.set('datauser',newProp.username,{ path: "/Adminhome" })
+        //     console.log(newProp.username)
+        // }
     }
 
     onLoginBtnClick = () => {
@@ -28,7 +35,7 @@ class login extends Component {
     }
 
     render() {
-        // console.log(this.props.username)
+        console.log(this.props.username)
         if(this.props.username === "")
         {
             return (
@@ -60,6 +67,9 @@ class login extends Component {
             )
         }
         else if(this.props.username) {
+            if(this.props.role === 'admin') {
+                return <Redirect to="/Adminhome" />
+            }
             return <Redirect to="/" />
         }
         
@@ -69,6 +79,7 @@ class login extends Component {
 const mapStateToProps = (state) => {
     return {
         username : state.auth.username,
+        role : state.auth.role,
         error: state.auth.error
     }
 }

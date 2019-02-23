@@ -1,8 +1,9 @@
 import axios from 'axios';
 import {
     USER_LOGIN_SUCCESS,
-    ADMIN_LOGIN, 
-    AUTH_SYSTEM_ERROR, 
+    AUTH_SYSTEM_ERROR,
+    AUTH_SYSTEM_ERROR_LOGIN, 
+    AUTH_SYSTEM_ERROR_REGISTER,
     LOGOUT,
     CHECK_COOKIE,
     DETAIL_PRODUCT,
@@ -15,9 +16,31 @@ export const onAppRender = () => {
 }
 
 export const onAppRefresh = (username) => {
-    // console.log(username)
-    // if(username === 'kevin')
-    return { type : USER_LOGIN_SUCCESS , payload: username}
+    return (dispatch) => {
+        axios.get(URL_API + '/auth/keeplogin/' + username) 
+        .then((res) => {
+            console.log('masuk then')
+            if(res.data.length > 0){
+                console.log('masuk if')
+                dispatch({ 
+                    type: USER_LOGIN_SUCCESS, 
+                    payload: {
+                        id: res.data[0].id,
+                        username: res.data[0].username,
+                        password: res.data[0].password,
+                        email: res.data[0].email,
+                        role: res.data[0].role
+                    } 
+                })
+            }
+            else {
+                console.log('tidak masuk if')
+            }
+        }).catch((err) => {
+            console.log('gagal')
+            console.log(err)
+        })
+    }
 }
 
 export const onUserLogout = () => {
@@ -45,15 +68,19 @@ export const onUserLogin = ({ username , password }) => {
         .then((res) => {
             // console.log(res)
             if(res.data.length > 0) {
-                if(res.data[0].role === 'admin'){
-                    dispatch({ type: ADMIN_LOGIN, payload: username })
-                }
-                else {
-                    dispatch({ type: USER_LOGIN_SUCCESS, payload: username })
-                }
+                dispatch({ 
+                    type: USER_LOGIN_SUCCESS, 
+                    payload: {
+                        id: res.data[0].id,
+                        username: res.data[0].username,
+                        password: res.data[0].password,
+                        email: res.data[0].email,
+                        role: res.data[0].role
+                    } 
+                })  
             }
             else {
-                dispatch({ type: AUTH_SYSTEM_ERROR, payload: 'username or password invalid'})
+                dispatch({ type: AUTH_SYSTEM_ERROR_LOGIN, payload: 'username or password invalid'})
             }
             
         }).catch((err) => {
@@ -77,10 +104,19 @@ export const onUserRegister = ({ username,email,password}) => {
                 email
             }).then((res) =>{
                 if(res.data.length > 0) {
-                    dispatch({ type: USER_LOGIN_SUCCESS, payload: username })
+                    dispatch({ 
+                        type: USER_LOGIN_SUCCESS, 
+                        payload: {
+                            id: res.data[0].id,
+                            username: res.data[0].username,
+                            password: res.data[0].password,
+                            email: res.data[0].email,
+                            role: res.data[0].role
+                        }  
+                    })
                 }
                 else {
-                    dispatch({ type: AUTH_SYSTEM_ERROR, payload: res.data.message})
+                    dispatch({ type: AUTH_SYSTEM_ERROR_REGISTER, payload: res.data.message})
                 }
             }).catch((err) => {
                 dispatch({ type: AUTH_SYSTEM_ERROR, payload: 'System Error' });                

@@ -43,6 +43,7 @@ class history extends Component {
     componentDidMount() {
         axios.get(URL_API + '/admin/historylist/' + this.props.username)
         .then((res) => {
+            console.log(this.props.username)
             this.setState({ historyListPending : res.data})
         }).catch((err) => {
             console.log(err)

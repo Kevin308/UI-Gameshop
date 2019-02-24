@@ -15,7 +15,7 @@ import {
   DropdownMenu,
   DropdownItem
 } from 'reactstrap';
-import { onUserLogout } from '../actions'   
+import { onUserLogout , SearchOnClick } from '../actions'   
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faUser, faShoppingCart, faSignOutAlt, faSearch} from '@fortawesome/free-solid-svg-icons';
 import {connect} from 'react-redux';
@@ -43,6 +43,13 @@ class header extends Component {
       isOpen: !this.state.isOpen
     });
   }
+
+  onSearchBtnClick = () => {
+    var search = this.refs.search.value;
+    console.log(search)
+    this.props.SearchOnClick(search);
+  }
+
   render() {
     if(this.props.username) {
       if(this.props.role === 'user') {
@@ -54,12 +61,14 @@ class header extends Component {
               <Collapse isOpen={this.state.isOpen} navbar>
                 <Nav className="ml-auto" navbar>
                 <NavbarBrand>
-                  <Input type="text" />
+                  <input style={{borderRadius:'10px'}} type="text" ref="search" placeholder="  Search.." />
                 </NavbarBrand>
                 <NavbarBrand>
-                  <Button color="white">
-                  <FontAwesomeIcon icon={faSearch} />
-                  </Button>
+                  <Link to='/Search'>
+                    <Button color="white" onClick={this.onSearchBtnClick}>
+                      <FontAwesomeIcon icon={faSearch} />
+                    </Button>
+                  </Link>
                 </NavbarBrand>
                 <UncontrolledDropdown nav inNavbar>
                   <DropdownToggle nav caret style={{color:'white'}}>
@@ -121,32 +130,33 @@ class header extends Component {
                 </NavbarBrand>
                 <UncontrolledDropdown nav inNavbar>
                   <DropdownToggle nav caret style={{color:'white'}}>
-                    Produk
+                    Admin Menu
                   </DropdownToggle>
                   <DropdownMenu right>
                     <DropdownItem>
                       <Link to="/Manageproduk" style={{color:'black'}}>Manage Produk</Link>
                     </DropdownItem>
                     <DropdownItem>
-                      <Link to="/SwitchGame" style={{color:'black'}}>Edit Product</Link>  
+                      <Link to="/Manageorder" style={{color:'black'}}>Manage Order</Link>  
                     </DropdownItem>
                   </DropdownMenu>
                 </UncontrolledDropdown>
                 <UncontrolledDropdown nav inNavbar>
                   <DropdownToggle nav caret style={{color:'white'}}>
-                    Admin Role  
+                    Admin Menu  
                   </DropdownToggle>
                   <DropdownMenu right>
                     <DropdownItem>
-                      <Link to="/cart" style={{color:'black'}}>
-                        <FontAwesomeIcon icon={faShoppingCart} /> Payment Manage
+                      <Link to="/Adminhome" style={{color:'black'}}>
+                        {/* <FontAwesomeIcon icon={faShoppingCart} />  */}
+                        Admin Home
                       </Link> 
                     </DropdownItem>
-                    <DropdownItem>
+                    {/* <DropdownItem>
                       <Link to="/History" style={{color:'black'}}>
                         <FontAwesomeIcon icon={faUser}></FontAwesomeIcon> User Manage
                       </Link>
-                    </DropdownItem>
+                    </DropdownItem> */}
                     <DropdownItem onClick={this.onLogoutBtnClick}>
                       <Link to="/" style={{color:'black'}}>
                         <FontAwesomeIcon icon={faSignOutAlt}></FontAwesomeIcon> Log Out
@@ -214,4 +224,4 @@ const mapStateToProps = (state) => {
     role: state.auth.role
   }
 }
-export default connect(mapStateToProps, { onUserLogout })(header);
+export default connect(mapStateToProps, { onUserLogout, SearchOnClick })(header);

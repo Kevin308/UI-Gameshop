@@ -16,7 +16,7 @@ class ps4game extends Component {
     state = { produklist : []}
 
     componentDidMount() {
-        axios.get(URL_API + '/produk/produklistPS4')
+        axios.get(URL_API + '/produk/searchproduk/' + this.props.search)
             .then((res)=> {
                 this.setState({produklist : res.data})
             }).catch((err)=> {
@@ -30,9 +30,9 @@ class ps4game extends Component {
         //kirim item ke globalstate
     }
 
-    renderPS = () => {
+    renderSearch = () => {
         const showproduk = this.state.produklist.map((item) => {
-                console.log(`${item.image}`)
+                // console.log(`${item.image}`)
             return (
                 <div onClick={() => this.onItemClick(item)} className="produkitem col-sm-6 col-md-3" >
                     <Link to='/detail'>    
@@ -49,17 +49,23 @@ class ps4game extends Component {
     render() {
         return (    
             <div className="display container">
+            <h2>Search Result for "{this.props.search}"</h2>
                 <Breadcrumb>
                     <BreadcrumbItem><Link to='/'>Home</Link></BreadcrumbItem>
-                    <BreadcrumbItem active>PS4</BreadcrumbItem>
+                    <BreadcrumbItem active>Product</BreadcrumbItem>
                 </Breadcrumb>
                 <div className="row">
-                    {this.renderPS()}
+                    {this.renderSearch()}
                 </div>
             </div>    
         )
     }
 }
 
+const mapStateToProps = (state) => {
+    return {
+      search : state.produk.search
+    }
+}
 
-export default connect(null , { DetailProductOnClick })(ps4game);
+export default connect(mapStateToProps , { DetailProductOnClick })(ps4game);

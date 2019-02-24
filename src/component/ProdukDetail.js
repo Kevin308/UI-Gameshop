@@ -65,8 +65,13 @@ class produk extends Component {
     }
 
     render() {
-      var { nama, harga, description, img, konsol } = this.props.produk
+      var { nama, harga, description, image , konsol } = this.props.produk
       if(konsol === 'PS4') {
+        console.log(nama)
+        console.log(harga)
+        console.log(description)
+        console.log(konsol)
+        console.log(image)
         return (
           <div className="display container">
           <Breadcrumb>
@@ -74,7 +79,7 @@ class produk extends Component {
               <BreadcrumbItem><Link to='/PS4Game'>{konsol}</Link></BreadcrumbItem>
           </Breadcrumb>
           <div className="produkitem container col-4">
-          <CardImg top width="100%" src={img} alt="Card image cap" />
+          <CardImg top width="100%" src={`${URL_API}${image}`} alt="Card image cap" />
           </div>
           <div className="produkitem container col-8">
             <CardBody>
@@ -98,7 +103,7 @@ class produk extends Component {
               <BreadcrumbItem><Link to='/SwitchGame'>{konsol}</Link></BreadcrumbItem>
           </Breadcrumb>
           <div className="produkitem container col-4">
-          <CardImg top width="100%" src={img} alt="Card image cap" />
+          <CardImg top width="100%" src={`${URL_API}${image}`} alt="Card image cap" />
           </div>
           <div className="produkitem container col-8">
             <CardBody>

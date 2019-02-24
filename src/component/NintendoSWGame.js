@@ -36,7 +36,7 @@ class nintendoSWgame extends Component {
             return (
                 <div onClick={() => this.onItemClick(item)} className="produkitem col-sm-6 col-md-3" >
                     <Link to='/detail'>    
-                    <CardImg src={item.img} alt={item.nama} />
+                    <CardImg src={`${URL_API}${item.image}`} alt={item.nama} />
                     </Link>
                     <CardBody>
                         <CardTitle>{item.nama}</CardTitle>

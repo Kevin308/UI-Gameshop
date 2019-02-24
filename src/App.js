@@ -15,7 +15,9 @@ import Payment from './component/Payment';
 import History from './component/History';
 import Historydetail from './component/Historydetail';
 import Adminhome from './component/Adminhome';
-// import Manageproduk from './component/Manageproduk';
+import Manageproduk from './component/Manageproduk';
+import Manageorder from './component/Manageorder';
+import Search from './component/search';
 import './App.css';
 import './support/css/tampilan.css';
 
@@ -43,10 +45,13 @@ class App extends Component {
             <Header />
             <Route exact path="/" component={Home} />
             <Route path="/Adminhome" component={Adminhome} />
+            <Route path="/Manageproduk" component={Manageproduk} />
+            <Route path="/Manageorder" component={Manageorder} />
             <Route path="/register" component={Register} />
             <Route path="/login" component={Login} />
             <Route path="/PS4Game" component={Ps4game} />
             <Route path="/SwitchGame" component={NintendoSWgame} />
+            <Route path="/Search" component={Search} />
           </div>
           <div className="table">
             <Route path="/detail" component={Produk} />

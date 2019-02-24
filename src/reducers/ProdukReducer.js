@@ -1,5 +1,6 @@
 import {
-    DETAIL_PRODUCT
+    DETAIL_PRODUCT,
+    SEARCH
 } from '../actions/types';
 
 const INITIAL_STATE = { 
@@ -9,13 +10,16 @@ const INITIAL_STATE = {
     status: '', 
     harga: 0, 
     desc: '', 
-    img: '' 
+    image: '',
+    search: '' 
 };
 
 export default (state = INITIAL_STATE, action) => {
     switch(action.type) {
         case DETAIL_PRODUCT :
             return action.payload;
+        case SEARCH :
+            return { ...INITIAL_STATE, search : action.payload };
         default :
             return state;
     }

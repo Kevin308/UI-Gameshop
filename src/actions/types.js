@@ -5,6 +5,7 @@ export const AUTH_SYSTEM_ERROR_LOGIN = 'AUTH_SYSTEM_ERROR_LOGIN';
 export const AUTH_SYSTEM_ERROR_REGISTER = 'AUTH_SYSTEM_ERROR_REGISTER';
 export const LOGOUT = 'LOGOUT';
 export const CHECK_COOKIE = 'CHECK_COOKIE';
+export const SEARCH = 'SEARCH';
 export const DETAIL_PRODUCT = 'DETAIL_PRODUCT';
 export const DETAIL_HISTORY = 'DETAIL_HISTORY';
 export const URL_API = 'http://localhost:1993';

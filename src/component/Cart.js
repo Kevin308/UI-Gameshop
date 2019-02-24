@@ -37,6 +37,7 @@ class cart extends Component {
 
     CartRender = () => {
         const Cartrender = this.state.cartItem.map((item) => {
+            console.log(this.state.cartItem)
             return (    
                 <tr>
                     <td>
@@ -46,7 +47,7 @@ class cart extends Component {
                     </td>
                     <td>
                         <div>
-                        <img width="70%"src={item.image} alt={item.nama} />
+                        <img width="70%"src={`${URL_API}${item.image}`} alt={item.nama} />
                         </div>
                         <div>
                         <p className='produkitem'>{item.nama}</p>

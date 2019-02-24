@@ -6,6 +6,7 @@ import {
     AUTH_SYSTEM_ERROR_REGISTER,
     LOGOUT,
     CHECK_COOKIE,
+    SEARCH,
     DETAIL_PRODUCT,
     DETAIL_HISTORY,
     URL_API
@@ -48,9 +49,17 @@ export const onUserLogout = () => {
 }
 
 export const DetailProductOnClick = (item) => {
+    console.log(item.image)
     return {
         type : DETAIL_PRODUCT,
         payload : item
+    }
+}
+
+export const SearchOnClick = (search) => {
+    return {
+        type : SEARCH,
+        payload : search
     }
 }
 
@@ -137,12 +146,14 @@ export const onUserOrder = ({ penerima, alamat, jasakirim, user, totalharga }) =
             axios.post(URL_API + '/belanja/checkout', {
                 penerima, alamat, jasakirim, user, totalharga
             }).then((res) => {
-                axios.delete(URL_API + '/belanja/deletecheckout/' + user)
+                if(res.data) {
+                    axios.delete(URL_API + '/belanja/deletecheckout/' + user)
                 .then((res) => {
-                    window.alert('Terima kasih telah berbelanja di Gameshop');
+                    console.log(res)
                 }).catch((err) => {
-                    console.log(err);
+                    console.log('kena catchnya axios.delete');
                 })
+                }
             })
         }
     }

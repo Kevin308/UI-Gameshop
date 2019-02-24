@@ -42,6 +42,7 @@ class payment extends Component {
         var user = this.props.username
         var totalharga = this.state.CartTotal
         this.props.onUserOrder({ penerima, alamat, jasakirim, user, totalharga })
+        window.alert('Terima Kasih telah berbelanja di Gameshop')
         this.setState({ status: 'Confirmed'})
     }
 

@@ -14,12 +14,6 @@ class login extends Component {
             cookies.set('datauser',newProp.username,{ path: "/" })
             console.log(newProp.username)
         }
-
-        // if(newProp !== '') {
-        //     console.log('admin')
-        //     cookies.set('datauser',newProp.username,{ path: "/Adminhome" })
-        //     console.log(newProp.username)
-        // }
     }
 
     onLoginBtnClick = () => {
